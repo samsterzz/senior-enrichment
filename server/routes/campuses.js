@@ -1,13 +1,24 @@
 'use strict'
 
 const router = require('express').Router();
-const { Campus } = require('../../db/models');
+const { Campus, Student } = require('../../db/models');
 
 router.get('/:id', (req, res, next) => {
-    Campus.findById(req.params.id)
+    Campus.findOne({
+        where: {
+            id: req.params.id
+        },
+        include: [{
+            model: Student,
+            where: {
+                campusId: req.params.id
+            }
+        }]
+    })
     .then((campus) => {
         res.status(200).json(campus);
     })
+    .catch(next);
 });
 
 router.get('/', (req, res, next) => {

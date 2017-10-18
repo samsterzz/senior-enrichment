@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import store from '../store';
 import { getStudentsFromServer } from '../reducers/students';
+import { Link } from 'react-router-dom';
 
 export default class StudentList extends Component {
 
@@ -31,7 +32,15 @@ export default class StudentList extends Component {
         return (
             <div>
                 <ul>
-                     {students.map(student => <li key={student.id}>{student.name}</li>)} 
+                    {
+                        students.map(student => 
+                            <li key={student.id}>
+                                <Link to={`/students/${student.id}`}>
+                                    {student.name}
+                                </Link>
+                            </li>
+                        )
+                    }   
                 </ul>  
             </div>
         )

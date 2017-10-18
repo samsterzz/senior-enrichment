@@ -50,7 +50,7 @@ const main = () => {
         console.log('Error while seeding');
         console.log(err.stack);
     })
-    // seeding works but throws an error when trying to close out
+    // Seeding db works, but throws an error when trying to close out.
     // .then(() => {
     //     // db.close();
     //     // return null;
