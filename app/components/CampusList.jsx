@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import store from '../store';
-import { getCampusesFromServer } from '../reducers';
+import { getCampusesFromServer } from '../reducers/campuses';
 
 export default class CampusList extends Component {
 
@@ -26,12 +26,12 @@ export default class CampusList extends Component {
     }
 
     render() {
-        const campuses = this.state.campuses;
-        {console.log(campuses)}
+        const campuses = this.state.campuses.campuses;
+
         return (
             <div>
                 <ul>
-                     {campuses.map(campus => <li key={campus.id}>{campus.name}</li>)} 
+                    {campuses.map(campus => <li key={campus.id}>{campus.name}</li>)}    
                 </ul>  
             </div>
         )
