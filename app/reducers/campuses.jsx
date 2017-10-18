@@ -1,34 +1,42 @@
+import axios from 'axios';
+
 // ACTION TYPES
-const GET_CAMPUSES_FROM_SERVER = 'GET_CAMPUSES_FROM_SERVER';
-const NEW_CAMPUS = 'NEW_CAMPUS';
-const GET_NEW_CAMPUS_FROM_SERVER = 'GET_NEW_CAMPUS_FROM_SERVER';
+const GET_CAMPUSES = 'GET_CAMPUSES';
+const GET_NEW_CAMPUS = 'GET_NEW_CAMPUS';
 
 // ACTION CREATORS
-export function getCampusesFromServer(campuses) {
+export function getCampuses(campuses) {
     return {
-        type: GET_CAMPUSES_FROM_SERVER,
+        type: GET_CAMPUSES,
         campuses
     }
 }
 
-export function newCampus(campusEntry) {
+export function getNewCampus(campus) {
     return {
-        type: NEW_CAMPUS,
-        newCampus: campusEntry
+        type: GET_NEW_CAMPUS,
+        campus
     }
 }
 
-export function getNewCampusFromServer(campus) {
-    return {
-        type: GET_NEW_CAMPUS_FROM_SERVER,
-        campus
+// THUNK CREATORS
+
+export function createCampus(campus) {
+
+    return function thunk(dispatch) {     
+        axios.post('/api/campuses/add', campus)
+            .then(res => res.data)
+            .then(newCampus => {
+                const action = getNewCampus(newCampus);
+                dispatch(action);
+            })
     }
 }
 
 // INITIAL STATE
 const initialState = {
     campuses: [],
-    newCampus: {}
+    newCampusEntry: {}
 };
 
 // REDUCER
@@ -36,13 +44,10 @@ export default function reducer (state = initialState, action) {
 
   switch(action.type) {
 
-    case GET_CAMPUSES_FROM_SERVER:
-        return Object.assign({}, state, { campuses: action.campuses }); 
+    case GET_CAMPUSES:
+        return Object.assign({}, state, { campuses: action.campuses });
 
-    case NEW_CAMPUS:
-        return Object.assign({}, state, { newCampus: action.newCampus });
-
-    case GET_NEW_CAMPUS_FROM_SERVER:
+    case GET_NEW_CAMPUS:
         return Object.assign({}, state, { campuses: state.campuses.concat(action.campus) });
 
     default: 

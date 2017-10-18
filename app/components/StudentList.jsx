@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import store from '../store';
-import { getStudentsFromServer } from '../reducers/students';
+import { getStudents } from '../reducers/students';
 import { Link } from 'react-router-dom';
 
 export default class StudentList extends Component {
@@ -15,7 +15,7 @@ export default class StudentList extends Component {
         axios.get('/api/students')
             .then(res => res.data)
             .then(students => {
-                const action = getStudentsFromServer(students);
+                const action = getStudents(students);
                 store.dispatch(action);
             });
         

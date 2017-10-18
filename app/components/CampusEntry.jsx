@@ -1,27 +1,45 @@
 import React, { Component } from 'react';
+import store from '../store';
+import { createCampus } from '../reducers/campuses';
 
 export default class CampusEntry extends Component {
 
     constructor() {
         super();
-        this.state = store.getState();
+        this.state = {
+            name: '',
+            image: ''
+        }
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    componentDidMount() {
-        this.unsubscribe = store.subscribe(() => this.setState(store.getState()));
+    handleChange(event) {      
+        this.setState({[event.target.name]: event.target.value})
     }
 
-    componentWillUnmount() {
-        this.unsubscribe();
-    }
+    handleSubmit(event) {
+        event.preventDefault();
 
-    handleChange(event) {
-        
+        const entry = this.state;
+        store.dispatch(createCampus(entry));
     }
 
     render() {
         return (
-            <form>
+            <form onSubmit={this.handleSubmit}>
+                <input
+                    type="text"
+                    name="name"
+                    onChange = {this.handleChange} 
+                />
+                <input
+                    type="text"
+                    name="image"
+                    onChange = {this.handleChange} 
+                /> 
+                <button type="submit">x</button>
             </form>
         )
     }
