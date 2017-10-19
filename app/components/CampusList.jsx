@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import store from '../store';
-import { getCampuses } from '../reducers/campuses';
 import { Link } from 'react-router-dom';
+
+import store from '../store';
+import { fetchCampuses, removeCampus } from '../reducers/campuses';
 
 export default class CampusList extends Component {
 
@@ -12,18 +12,18 @@ export default class CampusList extends Component {
     }
 
     componentDidMount() {
-        axios.get('/api/campuses')
-            .then(res => res.data)
-            .then(campuses => {
-                const action = getCampuses(campuses);
-                store.dispatch(action);
-            });
+        store.dispatch(fetchCampuses());
         
         this.unsubscribe = store.subscribe(() => this.setState(store.getState()));
     }
 
     componentWillUnmount() {
         this.unsubscribe();
+    }
+
+    handleClick(event) {
+        const id = Number(event.target.value);
+        store.dispatch(removeCampus(id))
     }
 
     render() {
@@ -38,6 +38,10 @@ export default class CampusList extends Component {
                                 <Link to={`/campuses/${campus.id}`}>
                                     {campus.name}
                                 </Link>
+                                <button 
+                                    value={campus.id}
+                                    onClick={this.handleClick}>x
+                                </button>   
                             </li>
                         )
                     }

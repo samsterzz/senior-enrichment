@@ -1,23 +1,20 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import store from '../store';
-import { getStudents } from '../reducers/students';
 import { Link } from 'react-router-dom';
+
+import store from '../store';
+import { fetchStudents, removeStudent } from '../reducers/students';
 
 export default class StudentList extends Component {
 
     constructor() {
         super();
         this.state = store.getState();
+
+        this.handleClick = this.handleClick.bind(this);
     }
 
     componentDidMount() {
-        axios.get('/api/students')
-            .then(res => res.data)
-            .then(students => {
-                const action = getStudents(students);
-                store.dispatch(action);
-            });
+        store.dispatch(fetchStudents());
         
         this.unsubscribe = store.subscribe(() => this.setState(store.getState()));
     }
@@ -26,9 +23,14 @@ export default class StudentList extends Component {
         this.unsubscribe();
     }
 
+    handleClick(event) {
+        const id = Number(event.target.value);
+        store.dispatch(removeStudent(id))
+    }
+
     render() {
         const students = this.state.students.students;
-
+        let event;
         return (
             <div>
                 <ul>
@@ -38,6 +40,7 @@ export default class StudentList extends Component {
                                 <Link to={`/students/${student.id}`}>
                                     {student.name}
                                 </Link>
+                                <button value={student.id} onClick={this.handleClick}>x</button>  
                             </li>
                         )
                     }   

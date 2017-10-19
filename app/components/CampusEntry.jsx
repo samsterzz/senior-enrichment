@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import store from '../store';
+
 import { createCampus } from '../reducers/campuses';
 
 export default class CampusEntry extends Component {
@@ -24,22 +25,26 @@ export default class CampusEntry extends Component {
 
         const entry = this.state;
         store.dispatch(createCampus(entry));
+
+        this.setState({ name: '', image: '' });
     }
 
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
-                <input
+                Name: <input
                     type="text"
                     name="name"
+                    value={this.state.name}
                     onChange = {this.handleChange} 
                 />
-                <input
+                Image: <input
                     type="text"
                     name="image"
+                    value={this.state.image}
                     onChange = {this.handleChange} 
                 /> 
-                <button type="submit">x</button>
+                <button type="submit">+</button>
             </form>
         )
     }

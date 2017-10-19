@@ -9,6 +9,7 @@ import CampusItem from './CampusItem';
 import StudentItem from './StudentItem';
 import CampusEntry from './CampusEntry';
 import StudentEntry from './StudentEntry';
+import ModifyStudent from './ModifyStudent';
 
 export default class Root extends Component {
 
