@@ -4,16 +4,16 @@ import axios from 'axios';
 
 import store from '../store';
 import { fetchSingleStudent, removeStudent } from '../reducers/students';
+import ModifyStudent from './ModifyStudent';
 
 export default class StudentItem extends Component {
 
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state = store.getState();
     }
 
     componentDidMount() {
-        console.log(this.props)
         const id = Number(this.props.match.params.id);
         store.dispatch(fetchSingleStudent(id));
 
@@ -43,6 +43,7 @@ export default class StudentItem extends Component {
                     </Link>
                 </h4>
                 <h4>
+                    <ModifyStudent name={student.name} />
                     <button value={student.id} onClick={this.handleClick}>x</button>  
                 </h4>
             </div>
