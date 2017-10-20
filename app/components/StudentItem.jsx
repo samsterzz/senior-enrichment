@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import history from '../history';
 
 import store from '../store';
 import { fetchSingleStudent, removeStudent } from '../reducers/students';
@@ -27,6 +28,8 @@ export default class StudentItem extends Component {
     handleClick(event) {
         const id = Number(event.target.value);
         store.dispatch(removeStudent(id))
+
+        history.goBack();
     }
 
     render() {
@@ -36,16 +39,19 @@ export default class StudentItem extends Component {
             <div>
                 <h3>{student.name}</h3>
                 <h4>
-                    <Link to={`/campuses/${student.campusId}`}>
+                    <p>{student.email}</p>
+                    <p><Link to={`/campuses/${student.campusId}`}>
                         {
                             student.campus ? student.campus.name : "" 
                         }
-                    </Link>
+                    </Link></p>
                 </h4>
-                <h4>
-                    <ModifyStudent name={student.name} />
-                    <button value={student.id} onClick={this.handleClick}>x</button>  
-                </h4>
+                <p>---</p>
+                <h4>Modify:</h4>
+                { 
+                    student.name.length ? <ModifyStudent name={student.name} email={student.email} campusId={student.campusId} /> : null 
+                }
+                <button value={student.id} onClick={this.handleClick}>Remove</button> 
             </div>
         )
     }

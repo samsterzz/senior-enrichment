@@ -31,6 +31,7 @@ export default class CampusList extends Component {
 
         return (
             <div>
+                <h3>All Campuses</h3>
                 <ul>
                     {
                         campuses.map(campus => 

@@ -8,10 +8,10 @@ export default class Navbar extends Component {
         <nav>
             <ul>
                 <li>
-                    <NavLink to="/home">Home</NavLink>
+                    <NavLink activeClassName="active" to="/home">CAMPUSES</NavLink>
                 </li>
                 <li>
-                     <NavLink to="/students">Students</NavLink> 
+                     <NavLink activeClassName="active" to="/students">STUDENTS</NavLink> 
                 </li>
             </ul>
         </nav>

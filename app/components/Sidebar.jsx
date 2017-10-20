@@ -8,10 +8,10 @@ export default class Sidebar extends Component {
             <sidebar>
                 <ul>
                     <li>
-                        <NavLink to="/campuses/add">Create Campus</NavLink>
+                        <NavLink activeClassName="active" to="/campuses/add">CREATE CAMPUS</NavLink>
                     </li>
                     <li>
-                        <NavLink to="/students/add">Create Student</NavLink>
+                        <NavLink activeClassName="active" to="/students/add">CREATE STUDENT</NavLink>
                     </li>
                 </ul>
             </sidebar>

@@ -31,21 +31,24 @@ export default class CampusEntry extends Component {
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
-                Name: <input
-                    type="text"
-                    name="name"
-                    value={this.state.name}
-                    onChange = {this.handleChange} 
-                />
-                Image: <input
-                    type="text"
-                    name="image"
-                    value={this.state.image}
-                    onChange = {this.handleChange} 
-                /> 
-                <button type="submit">+</button>
-            </form>
+            <div>
+                <h3>Create Campus</h3>
+                <form onSubmit={this.handleSubmit}>
+                    <p>Name: <input
+                        type="text"
+                        name="name"
+                        value={this.state.name}
+                        onChange = {this.handleChange} 
+                    /></p>
+                    <p>Image: <input
+                        type="text"
+                        name="image"
+                        value={this.state.image}
+                        onChange = {this.handleChange} 
+                    /></p>
+                    <p><button type="submit">Submit</button></p>
+                </form>
+            </div>
         )
     }
 }

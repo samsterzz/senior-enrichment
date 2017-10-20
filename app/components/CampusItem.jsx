@@ -51,6 +51,7 @@ export default class CampusItem extends Component {
                         ) : ""
                     }
                 </ul>
+                <img src={campus.image} />
             </div>
         )
     }

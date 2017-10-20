@@ -33,6 +33,7 @@ export default class StudentList extends Component {
         let event;
         return (
             <div>
+                <h3>All Students</h3>
                 <ul>
                     {
                         students.map(student => 
